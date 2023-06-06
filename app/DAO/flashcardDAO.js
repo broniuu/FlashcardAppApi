@@ -40,15 +40,21 @@ async function createNewOrUpdate(data) {
                 }
             });
         } else {
+            flashcardModel.remove()
             return flashcardModel.findByIdAndUpdate(data.id, _.omit(data, 'id'), {new: true});
         }
     });
+}
+
+async function remove(id) {
+    return flashcardModel.findOne({_id: id}).remove().exec();
 }
 
 export default {
     query: query,
     get: get,
     createNewOrUpdate: createNewOrUpdate,
+    remove: remove,
 
     model: flashcardModel
 };
